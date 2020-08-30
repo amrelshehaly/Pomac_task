@@ -1,4 +1,21 @@
-<button type="button" class="btn btn-warning" data-target="#column" data-toggle="modal"> new column</button>
+<div class="sidenav">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#clients">Clients</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="main">
+    <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+<!-- <button style="margin-left: 20px;margin-right: 20px;" type="button" class="btn btn-warning" data-target="#column" data-toggle="modal"> 
+    new column
+</button> -->
 
 <div class="modal fade" id="column" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -24,10 +41,14 @@
   </div>
 
 
+
+
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Add New Task
-  </button>
+
+    <button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    + Add New Task
+    </button>
+
   
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -45,7 +66,7 @@
                 <input type="text" class="form-control" id="recipient-name" [(ngModel)]="title">
               </div>
               <div class="form-group">
-                <label for="message-text" class="col-form-label">Message:</label>
+                <label for="message-text" class="col-form-label">Description:</label>
                 <textarea class="form-control" id="message-text" [(ngModel)]="desc"></textarea>
               </div>
               <div class="form-group">
@@ -61,10 +82,13 @@
                   </div>
                 </div>
               </div>
+              <div *ngIf="validateError" class="alert alert-danger" role="alert">
+                Please fill in Title and  Description.
+              </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="AddNewTask()">Save changes</button>
+          <button type="button" class="btn btn-primary" (click)="AddNewTask()">Save changes</button>
         </div>
       </div>
     </div>
@@ -102,21 +126,33 @@
 </div> -->
 
 
-<div cdkDropListGroup>
+<div cdkDropListGroup style="margin: 50px;">
     <div class="example-container" *ngFor="let row of columns">
-        <div>{{row.name}}</div>
+        <div style="font-size: larger;font-weight: bold;">{{row.name}}</div>
         <div
             cdkDropList
             [cdkDropListData]="data[row.id]"
             class="example-list"
             (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of data[row.id]" cdkDrag>
-                    {{ item.id + ': ' + item.name }}
+            <div class="card" *ngFor="let item of data[row.id]" cdkDrag style="width: 18rem;margin-top: 5px;">
+                <div class="card-body">
+                  <h5 class="card-title">{{item.title}}</h5>
+                  <p class="card-text">{{item.desc}}</p>
+                  <a type="button" (click)="showDetails(item)" class="btn btn-primary" data-target="#showdetails" data-toggle="modal">Show Details</a>
                 </div>
+            </div>
         </div>
         
     </div>
+
+
+    <button style="margin: 20px;" type="button" class="btn btn-warning" data-target="#column" data-toggle="modal"> 
+        Add New Column
+    </button>
+
+    
   
+    
     <!-- <div class="example-container">
       <h2>Done</h2>
   
@@ -129,3 +165,32 @@
       </div>
     </div> -->
   </div>
+
+
+  <div *ngIf="showing_details" class="modal fade" id="showdetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{showing_details.title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <h5>Description: </h5>
+                <label for="recipient-name" class="col-form-label">{{showing_details.desc}}</label>
+                <h5>User: </h5>
+                <label for="recipient-name" class="col-form-label">{{showing_details.select_user}}</label>
+                <h5>Date: </h5>
+                <label for="recipient-name" class="col-form-label">{{showing_details.date.day }}/{{showing_details.date.month }}/{{ showing_details.date.year }}</label>
+                <!-- <input type="text" class="form-control" id="recipient-name" [(ngModel)]="columns_name"> -->
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
