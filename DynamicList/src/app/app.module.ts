@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import {DragDropModule,moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { NewTaskComponent } from './new-task/new-task.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,7 +17,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     AppComponent,
     DashboardComponent,
-    NewTaskComponent
   ],
   imports: [
     BrowserModule,
