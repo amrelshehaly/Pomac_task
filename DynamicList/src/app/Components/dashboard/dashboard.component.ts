@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-  private timer: Observable<any>;
   public validateError: boolean = false;      
 
 
@@ -27,34 +26,18 @@ export class DashboardComponent implements OnInit {
   
 
 
-
+// here just creating data initially just to clarify were are the tasks and the column
   data = [
     [{id:1,title:"check endpoints",desc:"data should be reviewed",select_user:"Amr",date:{year:2020,month:8,day:27}},{id:2,title:"review code",desc:"server is not working properly",select_user:"Amr",date:{year:2020,month:8,day:29}}],
   ];
 
   columns =[{id:0,name:this.columns_name}]
 
-  // todo = [
-  //   'Get to work',
-  //   'Pick up groceries',
-  //   'Go home',
-  //   'Fall asleep'
-  // ];
-
-  // done = [
-  //   'Get up',
-  //   'Brush teeth',
-  //   'Take a shower',
-  //   'Check e-mail',
-  //   'Walk dog'
-  // ];
-
-  // data =[{id:1,name:'name1'},{id:2,name:'name2'},{id:3,name:'name3'},{id:4,name:'name4'},{id:5,name:'name5'},{id:6,name:'name6'}];
 
   constructor() { }
 
 
-  AddNewColumn(){
+  AddNewColumn(){ // here we add a new column when making new column we add a new empty array to get the new issues created
     var len = this.columns.length
     var a = this.columns[len-1];
     this.columns.push({id: a.id+1 , name:this.columns_name})
@@ -62,7 +45,7 @@ export class DashboardComponent implements OnInit {
     console.log(this.columns)
   }
 
-  AddNewTask(){
+  AddNewTask(){ // creating a new task with well validated for title and description
     console.log("clicked",this.model)
     console.log(this.data)
     var len =  this.data.length 
@@ -79,12 +62,12 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  showDetails(item){
+  showDetails(item){ // this is just to enable or disable the Danger alert in the html
     console.log(item);
     this.showing_details = item;
   }
 
-   setTimer(){
+   setTimer(){ // setting a timer for the danger alert to appear and after 3 sec disappear
     this.validateError = true;
     setTimeout(()=>{
       this.validateError = false
@@ -93,7 +76,7 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>) { // the process is to enable the obejcts to be darg and droped, according to the positions they are intially and they just switch postions
     // console.log("before if", event.container ,"previous contaoier",event.previousContainer);
     if (event.previousContainer === event.container) {
       // console.log(event);
